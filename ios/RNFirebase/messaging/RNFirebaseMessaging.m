@@ -300,6 +300,7 @@ RCT_EXPORT_METHOD(unsubscribeFromTopic: (NSString*) topic) {
 RCT_EXPORT_METHOD(createLocalNotification:(id)data resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     if([UNUserNotificationCenter currentNotificationCenter] != nil){
         UNNotificationRequest* request = [RCTConvert UNNotificationRequest:data];
+        [request.content setValue:@YES forKey:@"shouldAlwaysAlertWhileAppIsForeground"];
         [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
             if (!error) {
                 resolve(nil);
@@ -317,6 +318,7 @@ RCT_EXPORT_METHOD(createLocalNotification:(id)data resolver:(RCTPromiseResolveBl
 RCT_EXPORT_METHOD(scheduleLocalNotification:(id)data resolver:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
     if([UNUserNotificationCenter currentNotificationCenter] != nil){
         UNNotificationRequest* request = [RCTConvert UNNotificationRequest:data];
+        [request.content setValue:@YES forKey:@"shouldAlwaysAlertWhileAppIsForeground"];
         [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
             if (!error) {
                 resolve(nil);
